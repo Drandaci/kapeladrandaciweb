@@ -187,11 +187,7 @@
     }
 
     .band-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
+      display: none; /* Fotky zrušeny */
     }
 
     .band-row {
@@ -246,6 +242,55 @@
       transform: translateY(0);
     }
 
+    .members-photo {
+      max-width: 70%; /* Zvětšeno na 70% šířky */
+      height: auto;
+      margin-bottom: 0; /* Zrušena mezera pod fotkou */
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .members-photo:hover {
+      transform: scale(1.05);
+    }
+
+    .member-info-section {
+      margin-bottom: 0; /* Zrušena mezera pod jmény */
+    }
+
+    .member-info-section h3 {
+      font-size: 1.5rem;
+      color: #FFD700;
+      margin: 10px 0;
+    }
+
+    .member-info-section p {
+      font-size: 1rem;
+      margin: 5px 0;
+    }
+
+    .member-info-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 0; /* Zrušena mezera */
+    }
+
+    @media (max-width: 768px) {
+      .member-info-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .band-grid {
+        margin-top: 0; /* Zrušena mezera na menších obrazovkách */
+      }
+
+      .members-photo {
+        max-width: 90%; /* Upraveno pro menší obrazovky */
+      }
+    }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -285,6 +330,23 @@
 
     .gallery-item:hover img {
       transform: translate(-5%, -5%) scale(1.1); /* Posun a zvětšení místo pouhého scale */
+    }
+
+    .member-photo-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .member-photo-item img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .member-photo-item:hover img {
+      transform: scale(1.05);
     }
 
     .modal {
@@ -380,65 +442,6 @@
       }
     }
 
-    @media (max-width: 768px) {
-      nav {
-        padding: 10px 15px;
-        flex-direction: column;
-      }
-
-      .nav-links {
-        margin-top: 15px;
-      }
-
-      .nav-links a {
-        margin: 0 10px;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      section {
-        padding: 40px 10px;
-      }
-
-      h2 {
-        font-size: 1.8rem;
-      }
-
-      .band-row {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .band-member {
-        flex: 0 0 100%;
-        max-width: 180px;
-      }
-
-      .band-member img {
-        height: 180px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
-        gap: 8px;
-      }
-
-      .gallery-item img {
-        height: 125px;
-      }
-
-      .contact-info a {
-        display: block;
-        margin: 8px 0;
-      }
-    }
-
     @media (max-width: 375px) {
       /* Specifické pro iPhone 13 Mini a podobné malé obrazovky */
       .hero h1 {
@@ -469,6 +472,10 @@
         font-size: 0.9rem;
         padding: 6px 12px;
       }
+
+      .members-photo {
+        max-width: 100%; /* Plná šířka na velmi malých obrazovkách */
+      }
     }
   </style>
 </head>
@@ -479,6 +486,7 @@
       <div class="nav-links">
         <a href="#home">Domů</a>
         <a href="#about">O nás</a>
+        <a href="#members">Členové</a>
         <a href="#gallery">Galerie</a>
         <a href="#contact">Kontakty</a>
       </div>
@@ -497,54 +505,52 @@
 
   <section id="about">
     <h2>O nás</h2>
-    <p>Dranďáci jsou kapela, která míchá žánry jako koktejl na letní party. Naše hudba je plná energie, vášně a pořádné dávky legrace. Ať už jde o rockové riffy, jazzové improvizace nebo popové hity, vždycky to rozjedeme naplno!</p>
-    <div class="band-grid">
-      <div class="band-row single-member">
-        <div class="band-member">
-          <img src="https://placehold.co/300x300" alt="Člen kapely 7" onerror="this.src='https://placehold.co/300x300'; this.onerror=null;">
-          <div class="member-info">
-            Václav Roh<br>Bicí<br>Majitel
-          </div>
+    <p>Dranďáci jsou kapela s duší, která přináší hudbu plnou energie a tradice. Naše poslání je spojovat generace prostřednictvím melodie a rytmu, ať už na festivalech, svatbách, nebo místních slavnostech. S láskou k hudbě a vášní pro vystoupení jsme tu, abychom vám zpříjemnili každý okamžik!</p>
+  </section>
+
+  <section id="members">
+    <h2>Členové</h2>
+    <div class="member-photo-item" onclick="openModal('https://i.imgur.com/9GzNoee.png')">
+      <img src="https://i.imgur.com/9GzNoee.png" alt="Fotka členů" class="members-photo" onerror="this.src='https://placehold.co/600x400'; this.onerror=null;">
+    </div>
+    <div class="member-info-section">
+      <h3>Václav Roh</h3>
+      <p>Bicí</p>
+      <p>Majitel</p>
+
+      <div class="member-info-row">
+        <div>
+          <h3>Barbora Zápotočná</h3>
+          <p>Flétna</p>
+          <p>Kapelník</p>
+        </div>
+        <div>
+          <h3>Jakub Drbal</h3>
+          <p>Baskřídlovka & Kytara</p>
+          <p>Hudební aranžér</p>
+        </div>
+        <div>
+          <h3>Karolína Hostičková</h3>
+          <p>Akordeon</p>
+          <p>Člen</p>
         </div>
       </div>
-      <div class="band-row">
-        <div class="band-member">
-          <img src="https://placehold.co/300x300" alt="Člen kapely 1">
-          <div class="member-info">
-            Barbora Zápotočná<br>Flétna<br>Kapelník
-          </div>
+
+      <div class="member-info-row">
+        <div>
+          <h3>Markéta Drbalová</h3>
+          <p>Flétna</p>
+          <p>Člen</p>
         </div>
-        <div class="band-member">
-          <img src="https://placehold.co/300x300" alt="Člen kapely 2">
-          <div class="member-info">
-            Jakub Drbal<br>Baskřídlovka & Kytara<br>Hudební aranžér
-          </div>
+        <div>
+          <h3>Jana Římalová</h3>
+          <p>Saxofon</p>
+          <p>Člen</p>
         </div>
-        <div class="band-member">
-          <img src="https://placehold.co/300x300" alt="Člen kapely 3">
-          <div class="member-info">
-            Karolína Hostičková<br>Akordeon<br>Člen 
-          </div>
-        </div>
-      </div>
-      <div class="band-row">
-        <div class="band-member">
-          <img src="https://placehold.co/300x300" alt="Člen kapely 4">
-          <div class="member-info">
-            Markéta Drbalová<br>Flétna<br>Člen
-          </div>
-        </div>
-        <div class="band-member">
-          <img src="https://placehold.co/300x300" alt="Člen kapely 5">
-          <div class="member-info">
-            Jana Římalová<br>Saxofon<br>Člen
-          </div>
-        </div>
-        <div class="band-member">
-          <img src="https://placehold.co/300x300" alt="Člen kapely 6">
-          <div class="member-info">
-            Aneta Zápotočná<br>Klavír<br>Člen
-          </div>
+        <div>
+          <h3>Aneta Zápotočná</h3>
+          <p>Klavír</p>
+          <p>Člen</p>
         </div>
       </div>
     </div>
@@ -573,8 +579,8 @@
     <p>Kontaktní osoba: Jan Novák<br>
        Sociální sítě:
        <span class="contact-info">
-         <a href="#" id="https://www.instagram.com/kapela_drandaci/">Instagram</a>
-         <a href="#" id="https://www.facebook.com/profile.php?id=61577934790414">Facebook</a>
+         <a href="https://www.instagram.com/kapela_drandaci/" id="instagram-link">Instagram</a>
+         <a href="https://www.facebook.com/profile.php?id=61577934790414" id="facebook-link">Facebook</a>
        </span>
     </p>
     <button class="submit-button" onclick="sendEmail()">Napsat e-mail</button>
